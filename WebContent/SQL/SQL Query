@@ -1,0 +1,13 @@
+create table USER (
+ userID varchar(20),
+ userPassword varchar(20),
+ userName varchar(20),
+ userGender varchar(50),
+ primary key(userID)
+);
+
+//데이터 베이스 접근 
+use boardtest
+
+//테이블 테이터 확인
+select * from USER;
