@@ -14,9 +14,26 @@
 </head>
 <body>
 	<%
+		//이미 로그인이 된 유저는 또다시 로그인할 수 없도록
+		String userID = null;
+		if(session.getAttribute("userID") != null){
+			userID = (String) session.getAttribute("userID");
+			}
+		if (userID != null){
+			
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('이미 로그인이 되어있습니다.')");
+			script.println("location.href = 'main.jsp'");
+			script.println("</script>");
+		}
+		
 		UserDAO userDAO = new UserDAO();
 		int result = userDAO.login(user.getUserID(), user.getUserPassword());
 		if(result == 1){
+			//로그인에 성공했을때 세션을 부여 후 메인 페이지로 이동하도록 설정
+			session.setAttribute("userID", user.getUserID());
+			
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('로그인 성공')");
