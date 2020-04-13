@@ -1,6 +1,6 @@
 package board;
 
-public class board {
+public class Board {
 	
 	private int boardID;
 	private String boardTitle;
