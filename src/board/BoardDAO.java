@@ -11,6 +11,7 @@ public class BoardDAO {
 	private Connection conn;
 	private ResultSet rs;
 	
+	// 생성자
 	public BoardDAO() {
 		try {
 			String dbURL = "jdbc:mysql://localhost:3306/boardtest?serverTimezone=UTC";
@@ -38,6 +39,7 @@ public class BoardDAO {
 		return "";//데이터베이스 오류 
 	}
 	
+	// 게시글 인덱스 함수
 	public int getNext() {
 		String SQL = "SELECT boardID FROM BOARD ORDER BY boardID DESC"; //게시글 번호를 증가 시키기위해 마지막에 쓰인 번호를 가져와서 +1 
 		try {
@@ -53,6 +55,7 @@ public class BoardDAO {
 		return -1; //데이터베이스 오류 
 	}
 	
+	// 글 쓰기 기능 함수
 	public int write(String boardTitle, String userID, String boardContent) {
 		String SQL = "INSERT INTO BOARD VALUES (?, ?, ?, ?, ?, ?)"; 
 		try {
@@ -114,6 +117,7 @@ public class BoardDAO {
 		
 	}
 	
+	// 게시글 상세보기 기능 함수
 	public Board getBoardOneList(int boardID) {
 		
 		String SQL = "SELECT * FROM BOARD WHERE boardID = ?";
@@ -135,6 +139,37 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 		return null; //해당 글이 존재하지 않는 경우	
+	}
+	
+	//글 수정 함수
+	public int updateBoard(int boardID, String boardTitle, String boardContent) {
+		
+		String SQL = "UPDATE BOARD SET boardTitle = ?, boardContent = ? WHERE boardID = ?"; 
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, boardTitle);
+			pstmt.setString(2, boardContent);
+			pstmt.setInt(3, boardID);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //데이터베이스 오류 
+	}
+	
+	//글 삭제 함수 
+	public int deleteBoard(int boardID) {
+		String SQL = "UPDATE BOARD SET boardAvailable = 0 WHERE boardID = ?"; 
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, boardID);
+			
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //데이터베이스 오류 
+		
 	}
 		
 }
