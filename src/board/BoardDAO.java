@@ -113,5 +113,28 @@ public class BoardDAO {
 		return false;	
 		
 	}
+	
+	public Board getBoardOneList(int boardID) {
+		
+		String SQL = "SELECT * FROM BOARD WHERE boardID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, boardID);  
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				Board board = new Board();
+				board.setBoardID(rs.getInt(1));
+				board.setBoardTitle(rs.getString(2));
+				board.setUserID(rs.getString(3));
+				board.setBoardDate(rs.getString(4));
+				board.setBoardContent(rs.getString(5));
+				board.setBoardAvailable(rs.getInt(6));
+				return board;
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null; //해당 글이 존재하지 않는 경우	
+	}
 		
 }
