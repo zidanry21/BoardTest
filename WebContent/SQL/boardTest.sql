@@ -1,9 +1,13 @@
+//데이터 베이스 생성
+create database boardtest;
+
 //유저 테이블
 create table USER (
  userID varchar(20),
  userPassword varchar(20),
  userName varchar(20),
- userGender varchar(50),
+ userGender varchar(20),
+ userEmail varchar(50),
  primary key(userID)
 );
 
@@ -21,7 +25,7 @@ boardTitle varchar(50),
 userID varchar(20),
 boardDate DATETIME,
 boardContent varchar(2048),
-boardAvailavle INT, 
+boardAvailable INT, 
 PRIMARY KEY (boardID)
 );
 

@@ -1,0 +1,10 @@
+@import url(http://fonts.googleapis.com/ealryaccess/namugothic.css);
+@import url(http://fonts.googleapis.com/ealryaccess/hanna.css);
+
+* {
+	font-family : 'Nanum Gothic';
+}
+
+h1 {
+	font-family : 'Hanna';
+}
