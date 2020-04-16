@@ -11,22 +11,22 @@ public class BoardDAO {
 	private Connection conn;
 	private ResultSet rs;
 	
-	// »ý¼ºÀÚ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public BoardDAO() {
 		try {
 			String dbURL = "jdbc:mysql://localhost:3306/boardtest?serverTimezone=UTC";
 			String dbID = "root";
-			String dbPassword = "root";
-			Class.forName("com.mysql.jdbc.Driver");
+			String dbPassword = "mysql";
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL,dbID,dbPassword);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	//ÇöÀçÀÇ ½Ã°£À» °¡Á®¿À´Â ÇÔ¼ö, °Ô½ÃÆÇ ±Û ÀÛ¼º½Ã ÇöÀç½Ã°£À» °¡Á®¿À±â À§ÇØ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½, ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public String getDate() {
-		String SQL = "SELECT NOW()"; //ÇöÀç ½Ã°£À» °¡Á®¿À´Â MysqlÀÇ ¹®¹ý
+		String SQL = "SELECT NOW()"; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Mysqlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
@@ -36,26 +36,26 @@ public class BoardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "";//µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù 
+		return "";//ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 	}
 	
-	// °Ô½Ã±Û ÀÎµ¦½º ÇÔ¼ö
+	// ï¿½Ô½Ã±ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 	public int getNext() {
-		String SQL = "SELECT boardID FROM BOARD ORDER BY boardID DESC"; //°Ô½Ã±Û ¹øÈ£¸¦ Áõ°¡ ½ÃÅ°±âÀ§ÇØ ¸¶Áö¸·¿¡ ¾²ÀÎ ¹øÈ£¸¦ °¡Á®¿Í¼­ +1 
+		String SQL = "SELECT boardID FROM BOARD ORDER BY boardID DESC"; //ï¿½Ô½Ã±ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ +1 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				return rs.getInt(1) + 1;
 				}
-			return 1; // Ã¹ ¹øÂ° °Ô½Ã¹°ÀÎ °æ¿ì
+			return 1; // Ã¹ ï¿½ï¿½Â° ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; //µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù 
+		return -1; //ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 	}
 	
-	// ±Û ¾²±â ±â´É ÇÔ¼ö
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 	public int write(String boardTitle, String userID, String boardContent) {
 		String SQL = "INSERT INTO BOARD VALUES (?, ?, ?, ?, ?, ?)"; 
 		try {
@@ -70,17 +70,17 @@ public class BoardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; //µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù 
+		return -1; //ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 	}
 	
-	// Æ¯Á¤ ÆäÀÌÁö¿¡ µû¶ó 10°³ÀÇ ±Û ¸ñ·ÏÀ» °¡Á®¿À±â À§ÇØ
+	// Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 10ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public ArrayList<Board> getBoardList(int pageNumber){
 		
-		String SQL = "SELECT * FROM BOARD WHERE boardID < ? AND boardAvailable = 1 ORDER BY boardID DESC LIMIT 10 ";  //»èÁ¦°¡ µÇÁö ¾ÊÀº ±ÛÀÌ¸é¼­ 
+		String SQL = "SELECT * FROM BOARD WHERE boardID < ? AND boardAvailable = 1 ORDER BY boardID DESC LIMIT 10 ";  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸é¼­ 
 		ArrayList<Board> list = new ArrayList<Board>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10); // getNext() ´ÙÀ½À¸·Î ÀÛ¼ºµÉ ±ÛÀÇ ¹øÈ£ 
+			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10); // getNext() ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ 
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Board board = new Board();
@@ -98,7 +98,7 @@ public class BoardDAO {
 		return list;	
 	}
 	
-	// ÆäÀÌÂ¡ Ã³¸®¸¦ À§ÇÑ ÇÔ¼ö
+	// ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 	public boolean nextPage(int pageNumber) {
 		
 		String SQL = "SELECT * FROM BOARD WHERE boardID < ? AND boardAvailable = 1 ";
@@ -107,7 +107,7 @@ public class BoardDAO {
 			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);  
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				//°á°ú°¡ ÇÏ³ª¶óµµ Á¸ÀçÇÏ´Â °æ¿ì 
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ 
 				return true;
 				}
 		} catch (Exception e) {
@@ -117,7 +117,7 @@ public class BoardDAO {
 		
 	}
 	
-	// °Ô½Ã±Û »ó¼¼º¸±â ±â´É ÇÔ¼ö
+	// ï¿½Ô½Ã±ï¿½ ï¿½ó¼¼ºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 	public Board getBoardOneList(int boardID) {
 		
 		String SQL = "SELECT * FROM BOARD WHERE boardID = ?";
@@ -138,10 +138,10 @@ public class BoardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null; //ÇØ´ç ±ÛÀÌ Á¸ÀçÇÏÁö ¾Ê´Â °æ¿ì	
+		return null; //ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½	
 	}
 	
-	//±Û ¼öÁ¤ ÇÔ¼ö
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 	public int updateBoard(int boardID, String boardTitle, String boardContent) {
 		
 		String SQL = "UPDATE BOARD SET boardTitle = ?, boardContent = ? WHERE boardID = ?"; 
@@ -154,10 +154,10 @@ public class BoardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; //µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù 
+		return -1; //ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 	}
 	
-	//±Û »èÁ¦ ÇÔ¼ö 
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ 
 	public int deleteBoard(int boardID) {
 		String SQL = "UPDATE BOARD SET boardAvailable = 0 WHERE boardID = ?"; 
 		try {
@@ -168,7 +168,7 @@ public class BoardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; //µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù 
+		return -1; //ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 		
 	}
 		
